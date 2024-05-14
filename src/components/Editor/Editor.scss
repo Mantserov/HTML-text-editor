@@ -68,6 +68,10 @@
       border: none;
       cursor: pointer;
 
+      @media (max-width: 337px) {
+        margin-right: 0.5rem;
+      }
+
       &:hover {
         .tool {
           color: red;
