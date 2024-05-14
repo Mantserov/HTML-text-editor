@@ -118,9 +118,10 @@ export function EmailEditor() {
                 {parse(text.text)}
                 <button
                   className="saved__delete"
+                  key={text.id}
                   onClick={() => deleteText(text.id)}
                 >
-                  <CircleX size={20} />
+                  <CircleX key={text.id} size={20} />
                 </button>
               </li>
             </>

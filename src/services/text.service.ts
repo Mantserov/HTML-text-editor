@@ -2,8 +2,7 @@ import axios from "axios";
 import { IText } from "./types";
 
 class TextService {
-  private URL =
-    "https://json-server-test-1iv2s6tcj-mantserovs-projects.vercel.app/texts";
+  private URL = "https://json-server-test-mantserovs-projects.vercel.app/texts";
 
   async getTexts() {
     const response = await axios.get<IText[]>(this.URL);
