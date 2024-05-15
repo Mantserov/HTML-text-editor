@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import "./Editor.scss";
 import {
   Trash2,
@@ -8,38 +7,14 @@ import {
   MoveRight,
   CircleX,
 } from "lucide-react";
-import { TStyle, applyStyle } from "./text-style";
 import parse from "html-react-parser";
 import { textService } from "../../services/text.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEditor } from "./useEditor";
 
 export function EmailEditor() {
-  const [text, setText] = useState("");
-
-  // Попробовать вынести в отдельный хук:
-  const [selectionStart, setSelectionStart] = useState(0);
-  const [selectionEnd, setSelectionEnd] = useState(0);
-
-  const textRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const updateSelection = () => {
-    if (!textRef.current) return;
-
-    setSelectionStart(textRef.current.selectionStart);
-    setSelectionEnd(textRef.current.selectionEnd);
-  };
-  // Досюдова
-
-  const getSelectionText = (type: TStyle) => {
-    const selectedText = text.slice(selectionStart, selectionEnd);
-
-    if (!selectedText) return;
-
-    const before = text.slice(0, selectionStart);
-    const after = text.slice(selectionEnd);
-
-    setText(before + applyStyle(type, selectedText) + after);
-  };
+  const { text, setText, updateSelection, getSelectionText, textRef } =
+    useEditor();
 
   const { data } = useQuery({
     queryKey: ["text list"],
@@ -95,7 +70,7 @@ export function EmailEditor() {
         </div>
       </div>
       <div className="arrow">
-        <MoveRight size={100} />
+        <MoveRight size={100} color="#213547" />
       </div>
       <div className="result">
         <div className="result__text">{parse(text)}</div>
@@ -121,7 +96,7 @@ export function EmailEditor() {
                   key={text.id}
                   onClick={() => deleteText(text.id)}
                 >
-                  <CircleX key={text.id} size={20} />
+                  <CircleX key={text.id} size={20} color="#213547" />
                 </button>
               </li>
             </>
