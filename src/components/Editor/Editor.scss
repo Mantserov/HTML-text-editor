@@ -72,6 +72,10 @@
         margin-right: 0.5rem;
       }
 
+      @media (max-width: 305px) {
+        margin-right: 0.1rem;
+      }
+
       &:hover {
         .tool {
           color: red;
